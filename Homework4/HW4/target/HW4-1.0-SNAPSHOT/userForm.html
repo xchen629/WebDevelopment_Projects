@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+    XiaoWei Chen
+    Professor Yusuf
+    Project 4
+    10/29/2019
+-->
+<html>
+    <head>
+        <title>Ask a Question</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <style>
+            input, button{
+                padding: 10px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="questionForm">  
+            <h1>Enter a question</h1>
+            <input id="question" type="text" name="question"> 
+            <br>
+            <h1>Enter the number of options</h1>
+            <br>
+            <input id="numOp" type="text" name="numOp" style="width: 50px;">
+            <input type="button" value="Enter options" id="getPn" onclick="generateOptions();">
+            
+            <div id="optionDiv"></div>
+        </form>
+       
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        
+         <script>//Function that uses ajax to send and request data from the server.  
+            function generateOptions(){
+            // Number of inputs to create
+            var number = document.getElementById("numOp").value;
+            
+            console.log(number);
+            // Container <div> where dynamic content will be placed
+            
+            $("#optionDiv").empty();//This emptys out the div so that when new number of options is created it won't overlap with the old one.
+            
+            for (let i = 1; i <= number; i++){
+                // Append a node with a random text
+                $("#optionDiv").append('<p> Option-' + i + '</p>');
+                $("#optionDiv").append('<input type="text" id="option'+i+'" name="option'+i+'"><br>');
+            }
+            $("#optionDiv").append('<button type="button" onclick="sendData();">Save this question</button>');
+        }
+        
+        //This function sends the data to the database, and shows alert if the information is being stored into the database.
+        function sendData(){
+            const dataToSend = $("#questionForm").serialize();
+            console.log(dataToSend);
+           
+            $.ajax({
+                url: 'firstservlet',
+                type: 'POST',
+                data: dataToSend,
+                success: function (data) {
+                    console.log(data);
+                    alert("Data has been saved!");
+                }
+            });
+       }
+        </script>
+        <br>
+        <a href="http://localhost:8080/HW4/secondservlet">Click to view items in the Database</a>
+    </body>
+</html>
