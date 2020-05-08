@@ -1,0 +1,26 @@
+ .container{
+     background-color: ghostwhite;
+}
+h1{
+    color: red;
+    font-size: 70px;
+    text-align: center;
+    font-family:serif;
+}
+h3{
+    text-align: center;
+    color: grey;
+}
+.container h3{
+    color: dodgerblue;
+    text-align: center;
+}
+.container p{
+    text-align: center;
+}
+/*Set the range of screen size and apply these rule within the range*/
+@media (min-width: 992px) and (max-width: 1200px){
+    #bet-amount{
+        font-size: 15px;
+    }
+} 
